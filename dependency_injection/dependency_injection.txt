@@ -1,0 +1,3 @@
+Dependenvy injection - design pattern for improving quality and maintanability
+of  your code. 
+Instead of creating and managing object directly within your code you delegate the job to your dependency injection container
