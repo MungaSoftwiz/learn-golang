@@ -22,7 +22,10 @@ func MyGreeterHandler(w http.ResponseWriter, r *http.Request) {
 	Greet(w, "world")
 }
 
-
+/*
+ * sets up an HTTP server listening on port 5001
+ * registers the MyGreeterHandler function as the handler for all incoming HTTP requests.
+ */
 func main() {
 	Greet(os.Stdout, "Elodie")
 	log.Fatal(http.ListenAndServe(":5001", http.HandlerFunc(MyGreeterHandler)))
