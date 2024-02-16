@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io"
+	"log"
 	"os"
 	"net/http"
 )
@@ -23,6 +24,6 @@ func MyGreeterHandler(w http.ResponseWriter, r *http.Request) {
 
 
 func main() {
-//	Greet(os.Stdout, "Elodie")
+	Greet(os.Stdout, "Elodie")
 	log.Fatal(http.ListenAndServe(":5001", http.HandlerFunc(MyGreeterHandler)))
 }
