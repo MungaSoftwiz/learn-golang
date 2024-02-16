@@ -12,6 +12,8 @@ import (
 
 //If we use general purpose interface we can use it in
 //both tests and in our application
+//Fprintf is used cause it says "take this & write it somewhere using the 'Writer' interface"
+//So io.Writer is used as a general purpose interface
 func Greet(writer io.Writer, name string) {
 	fmt.Fprintf(writer, "Hello, %s", name)
 }
