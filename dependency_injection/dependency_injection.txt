@@ -1,3 +1,9 @@
 Dependenvy injection - design pattern for improving quality and maintanability
-of  your code. 
-Instead of creating and managing object directly within your code you delegate the job to your dependency injection container
+of  your code.
+
+Instead of creating and managing object directly within your code you delegate
+the job to your dependency injection container
+
+Keep in mind that functions to be used inside a package only starts with a
+small case and are private. The one to be used by other packages starts with a
+Capital letter and are Public.
