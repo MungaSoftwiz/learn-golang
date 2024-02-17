@@ -17,14 +17,39 @@ type Sleeper interface {
 	Sleep()
 }
 
-// Mock of our dependency for our tests to use
+/* Mock of our dependency for our tests to use
 type SpySleeper struct {
 	Calls int
 }
 func (s *SpySleeper) Sleep() {
 	s.Calls++
+}*/
+
+// We have 2 different dependencies & we want to record all
+// their operations into one list
+
+const write = "write"
+const sleep = "sleep"
+
+// Implements both io.Writer and Sleeper, recording every call into one slice
+// New mock of our dependency for our tests to use
+type SpyCountdownOperations struct {
+	Calls []string
 }
 
+// s is a receiver parameter of a method
+// It's always the instance of the struct on which method is called
+func (s *SpyCountdownOperations) Sleep() {
+	s.Calls = append(s.Calls, sleep)
+}
+
+func (s *SpyCountdownOperations) Write(p []byte) (n int, err error) {
+	s.Calls = append(s.Calls, write)
+	return
+}
+
+
+<F2>
 // A real sleeper which implements the interface we need
 type DefaultSleeper struct{}
 
@@ -44,6 +69,7 @@ func Countdown(out io.Writer, sleeper Sleeper) {
 		sleeper.Sleep()
 	}
 	fmt.Fprint(out, finalWord)
+
 }
 
 func main() {
