@@ -9,7 +9,10 @@ type result struct {
 
 func CheckWebsites(wc WebsiteChecker, urls []string) map[string]bool {
 	results := make(map[string]bool)
+
+
 	// help control the communication between different processes, allowing us to avoid a race condition bug
+	// Channels are concurrent & allow for parallel execution of multiple goroutines
 	resultChannel := make(chan result)
 
 
@@ -31,6 +34,7 @@ func CheckWebsites(wc WebsiteChecker, urls []string) map[string]bool {
 
 	for i := 0; i < len(urls); i++ {
 	// We use a receive expression (<-) which we assign a value received from the channel to a var
+	// Receiving op blocks until a value is available on the channel
 		r := <-resultChannel
 		results[r.string] = r.bool
 	}
