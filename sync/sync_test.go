@@ -8,7 +8,7 @@ import (
 // API to give us a method to increment the counter & retrieve it's value
 func TestCounter(t *testing.T) {
 	t.Run("incrementing the counter 3 times leaves it at 3", func(t *testing.T) {
-		counter := Counter{}
+		counter := NewCounter()
 		counter.Inc()
 		counter.Inc()
 		counter.Inc()
@@ -17,7 +17,7 @@ func TestCounter(t *testing.T) {
 	})
 	t.Run("it runs safely concurrently", func(t *testing.T) {
 		wantedCount := 1000
-		counter := Counter{}
+		counter := NewCounter()
 
 		// sync package provides basic synchronization primitives
 		// Some are: sync.Mutex, sync.WaitGroup, sync.atomic
@@ -42,7 +42,8 @@ func TestCounter(t *testing.T) {
 }
 
 
-func assertCounter(t testing.TB, got Counter, want int) {
+// we change our signature cause "a mutex must not be copied after first use"
+func assertCounter(t testing.TB, got *Counter, want int) {
 	t.Helper()
 	if got.Value() != want {
 		t.Errorf("got %d, want %d", got.Value(), want)
