@@ -1,6 +1,7 @@
 package main
 
 import (
+	"sync"
 	"testing"
 )
 
@@ -14,7 +15,32 @@ func TestCounter(t *testing.T) {
 
 		assertCounter(t, counter, 3)
 	})
+	t.Run("it runs safely concurrently", func(t *testing.T) {
+		wantedCount := 1000
+		counter := Counter{}
+
+		// sync package provides basic synchronization primitives
+		// Some are: sync.Mutex, sync.WaitGroup, sync.atomic
+		// these primitives coordinate execution of goroutines
+		var wg sync.WaitGroup
+		wg.Add(wantedCount)
+
+		/* test fails because multiple goroutines are trying to
+		 * mutate the value of the counter at the same time
+		 * so we'll change our go code to make it work
+		 */
+		for i := 0; i < wantedCount; i++ {
+			go func() {
+				counter.Inc()
+				wg.Done()
+			}()
+		}
+		wg.Wait()
+
+		assertCounter(t, counter, wantedCount)
+	})
 }
+
 
 func assertCounter(t testing.TB, got Counter, want int) {
 	t.Helper()
