@@ -1,4 +1,4 @@
-# Sycn package
+# Sync package
 
 The Sync package in Go is used for synchronization.
 It provides primitives sucha as mutexes(`sync.Mutes`) & wait groups(`sync.WaitGroup`).
