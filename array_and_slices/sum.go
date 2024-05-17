@@ -2,7 +2,7 @@ package main
 
 // size embedded with type so only accepts [5]int not [4]int
 //func Sum(numbers [5]int) int {
-//	sum := 0
+//	sum := 0 	-> Used only within  functions
 //	for i := 0; i < 5; i++ { uses a loop, range below
 //	for _, number := range numbers {
 //		sum  += number
