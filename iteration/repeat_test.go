@@ -1,7 +1,9 @@
 package iteration
 
-import "testing"
-import "fmt"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestRepeat(t *testing.T) {
 	repeated := Repeat("a", 5)
@@ -20,6 +22,7 @@ func ExampleRepeat() {
 }
 
 // runs b.N times to measure how long it takes to run
+// To run the benchmark do "go test =bench=. -v"
 func BenchmarkRepeat(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		Repeat("a", 5)
