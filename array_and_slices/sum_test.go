@@ -10,6 +10,7 @@ func TestSum(t *testing.T) {
 	t.Run("collection of 5 numbers", func(t *testing.T) {
 
 		//we make it a slice, more convenient
+		// Link to slices: https://go.dev/blog/slices-intro
 		numbers := []int{1, 2, 3, 4, 5}
 
 		got := Sum(numbers)
@@ -28,8 +29,12 @@ func TestSumAll(t *testing.T) {
 	want := []int{3, 9}
 
 	//if got != want { go don't use equality ops with slices
-	//we have slices std pkg, has slices.Equal in go 1.21+
-	//to do a shallow compare on slices
+	//we have slices std pkg, has slices."reflect.Equal" in go 1.21+
+	//to do a shallow compare on slices. Rem it's not type safety(deep equal).
+	//
+	// NOTE: reflect.DeepEqual does a deep comparison. It's slow.
+	// Also it considers "nil" and and empty slice to be different
+	// https://pkg.go.dev/reflect#DeepEqual
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("got %v want %v", got, want)
 	}
@@ -66,3 +71,13 @@ func TestSumAllTails(t *testing.T) {
 
 // https://go.dev/blog/cover  -> go test -cover
 // go test -coverprofile=coverage.out or go test -cover
+
+// Another package can also be used to compare slices and other
+// types. It's called "cmp". It's more customizable and powerful
+// than reflect.DeepEqual. It's also faster.
+
+/*
+if diff := cmp.Diff(want, got); diff != "" {
+    t.Errorf("mismatch (-want +got):\n%s", diff)
+}
+*/
