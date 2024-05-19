@@ -1,4 +1,4 @@
-package main
+package sum
 
 // size embedded with type so only accepts [5]int not [4]int
 //func Sum(numbers [5]int) int {
