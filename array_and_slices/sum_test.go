@@ -1,8 +1,8 @@
-package main
+package sum
 
 import (
-	"testing"
 	"reflect"
+	"testing"
 )
 
 func TestSum(t *testing.T) {
@@ -15,8 +15,8 @@ func TestSum(t *testing.T) {
 		got := Sum(numbers)
 		want := 15
 
-	// %v useful to print default format, inputs of func
-	// in error message
+		// %v useful to print default format, inputs of func
+		// in error message
 		if got != want {
 			t.Errorf("got %d want %d given, %v", got, want, numbers)
 		}
@@ -35,10 +35,10 @@ func TestSumAll(t *testing.T) {
 	}
 }
 
-//test to add tails of each slice"collec. of all items except head"
+// test to add tails of each slice"collec. of all items except head"
 func TestSumAllTails(t *testing.T) {
 
-	//helper func & not included in test output
+	//helper func are not included in test output
 	//local variable scope only used here(anonymous func)
 	//it adds type-safety. If dev adds checkSums(t, got,"dave" compiler will stop
 	checkSums := func(t testing.TB, got, want []int) {
@@ -63,3 +63,6 @@ func TestSumAllTails(t *testing.T) {
 		checkSums(t, got, want)
 	})
 }
+
+// https://go.dev/blog/cover  -> go test -cover
+// go test -coverprofile=coverage.out or go test -cover
