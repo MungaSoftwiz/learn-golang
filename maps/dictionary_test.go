@@ -1,4 +1,4 @@
-package main
+package maps
 
 import "testing"
 
@@ -20,11 +20,11 @@ func TestSerach(t *testing.T) {
 
 }
 
-//test func to add new words to dictionary
+// test func to add new words to dictionary
 func TestAdd(t *testing.T) {
 	t.Run("new word", func(t *testing.T) {
 		dictionary := Dictionary{}
-		word := "test" //key
+		word := "test"                      //key
 		definition := "this is just a test" //value
 		//dictionary.Add(word, definition)
 
@@ -46,7 +46,7 @@ func TestAdd(t *testing.T) {
 	})
 }
 
-//test func to update words n the dictionary
+// test func to update words n the dictionary
 func TestUpdate(t *testing.T) {
 	t.Run("existing word", func(t *testing.T) {
 		word := "test"
@@ -70,7 +70,7 @@ func TestUpdate(t *testing.T) {
 	})
 }
 
-//test function to delete words in dictionary
+// test function to delete words in dictionary
 func TestDelete(t *testing.T) {
 	word := "test"
 	dictionary := Dictionary{word: "test definition"}
@@ -83,7 +83,6 @@ func TestDelete(t *testing.T) {
 	}
 }
 
-
 func assertStrings(t testing.TB, got, want string) {
 	t.Helper()
 
@@ -92,8 +91,8 @@ func assertStrings(t testing.TB, got, want string) {
 	}
 }
 
-//creating a new helper we simplify our test and start using
-//ErrNotFound variable
+// creating a new helper we simplify our test and start using
+// ErrNotFound variable
 func assertError(t testing.TB, got, want error) {
 	t.Helper()
 	if got != want {
@@ -101,7 +100,7 @@ func assertError(t testing.TB, got, want error) {
 	}
 }
 
-//asserts that added word is present
+// asserts that added word is present
 func assertDefinition(t testing.TB, dictionary Dictionary, word, definition string) {
 	t.Helper()
 
