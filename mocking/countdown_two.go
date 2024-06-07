@@ -87,3 +87,6 @@ func main() {
 	sleeper := &ConfigurableSleeper{1 * time.Second, time.Sleep}
 	Countdown(os.Stdout, sleeper)
 }
+
+/* Resources about mocking: https://martinfowler.com/bliki/TestDouble.html
+*/
