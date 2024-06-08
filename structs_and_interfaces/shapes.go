@@ -45,3 +45,7 @@ func (c Circle) Area() float64 {
 func (t Triangle) Area() float64 {
 	return 0.5 * (t.Base * t.Height)
 }
+
+/*
+ * Resources about interfaces: https://jordanorelli.com/post/32665860244/how-to-use-interfaces-in-go
+ * Russ Cox's description : https://research.swtch.com/interfaces */
