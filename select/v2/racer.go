@@ -41,3 +41,32 @@ func ping(url string) chan struct{} {
 	}()
 	return ch
 }
+
+
+/*
+In Go, a `chan struct{}` is used when you want a channel where the value that's being passed doesn't carry any meaningful data. Here are a few reasons why you might want to use it:
+
+1. Signaling without data: Often, you just want to notify another goroutine that something has happened (e.g., an event has occurred or a job has finished), but you don't need to send any data about what happened. Using a `chan struct{}` is a clear signal to readers of your code that the channel is being used for signaling, not for passing data.
+
+2. Zero memory usage: A `struct{}` in Go does not occupy any memory. So, a channel of `chan struct{}` also uses no memory for the values it holds. This can be beneficial if you're creating a large number of channels or storing a large number of values in a channel.
+
+3. Closing to broadcast: A closed channel can be received from an unlimited number of times, always yielding the zero value of the channel's type immediately. If the channel's type is `struct{}`, then the zero value is just `{}`. This characteristic can be used for broadcasting a signal to an unlimited number of goroutines.
+
+Here's an example of how it's used:
+
+```go
+done := make(chan struct{})
+
+go func() {
+    // Do some work...
+    
+    // Signal that the work is done.
+    close(done)
+}()
+
+// Wait for the work to finish.
+<-done
+```
+
+In this code, the `done` channel is being used to signal when some goroutine has finished its work. No data needs to be passed; the sending of the signal is all that matters.
+*/
