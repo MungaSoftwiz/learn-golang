@@ -14,7 +14,7 @@ func Racer(a, b string) (winner string, error error) {
 
 func ConfigurableRacer(a, b string, timeout time.Duration) (winner string, error error) {
 
-	// select helps us synchronize processes easily
+	// select helps us synchronize comm across multiple channels easily
 	// We now don't check for website's speed one after the other
 	// select allows you to wait on multiple channels. the one that send 1st wins
 	select {
@@ -69,4 +69,11 @@ go func() {
 ```
 
 In this code, the `done` channel is being used to signal when some goroutine has finished its work. No data needs to be passed; the sending of the signal is all that matters.
+*/
+
+
+/*
+In Go, the `select` statement is used for synchronizing communication across multiple channels. It allows a goroutine to wait on multiple communication operations (both send and receive) and proceed with the one that's ready first, providing a way to deal with situations where you need to handle multiple channels at once.
+
+However, it's worth noting that while `select` is used with channels, and channels are often used with goroutines (which you might think of as similar to processes), `select` itself doesn't synchronize the goroutines or processes - it's used for the synchronization of operations (sends and receives) on channels.
 */
