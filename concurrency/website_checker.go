@@ -43,3 +43,11 @@ func CheckWebsites(wc WebsiteChecker, urls []string) map[string]bool {
 }
 
 /* go test -race */ //Helps us debug problems with concurrent code
+
+
+/*
+Channels: Channels are the primary way that goroutines communicate safely
+and synchronize their execution. You can send values into a channel and
+receive those values through another goroutine. By default, sends and receives block until the other side is ready
+allowing goroutines to synchronize without explicit locks or condition variables.
+*/
