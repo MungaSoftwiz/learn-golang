@@ -25,7 +25,7 @@ func CheckWebsites(wc WebsiteChecker, urls []string) map[string]bool {
 		go func(u string) {
 	// We send a result struct for each call to wc to resultChannel with a "send statement"
 			resultChannel <- result{u, wc(u)}
-		}(url)
+		}(url) //passing url as an arg solves issue of goroutine closure
 	}
 
 	// We give each anony func a param cause it was taking a reference to the "url" var.
