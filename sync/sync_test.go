@@ -23,7 +23,7 @@ func TestCounter(t *testing.T) {
 		// Some are: sync.Mutex, sync.WaitGroup, sync.atomic
 		// these primitives coordinate execution of goroutines
 		var wg sync.WaitGroup
-		wg.Add(wantedCount)
+		wg.Add(wantedCount) // sets no of goroutines to wait for
 
 		/* test fails because multiple goroutines are trying to
 		 * mutate the value of the counter at the same time
@@ -35,14 +35,14 @@ func TestCounter(t *testing.T) {
 				wg.Done()
 			}()
 		}
-		wg.Wait()
+		wg.Wait() // waits for all goroutines to finish
 
 		assertCounter(t, counter, wantedCount)
 	})
 }
 
-
-// we change our signature cause "a mutex must not be copied after first use"
+// We change our signature cause "a mutex must not be copied after first use"
+// Initial: func assertCounter(t testing.TB, got Counter, want int)
 func assertCounter(t testing.TB, got *Counter, want int) {
 	t.Helper()
 	if got.Value() != want {
