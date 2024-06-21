@@ -3,10 +3,11 @@ package convert_roman
 import (
 	"fmt"
 	"testing"
+	"testing/quick"
 )
 
 var cases = []struct {
-	Arabic int
+	Arabic uint16
 	Roman string
 }{
 	{Arabic: 1, Roman: "I"},
@@ -61,3 +62,54 @@ func TestConvertingToArabic(t *testing.T) {
 		})
 	}
 }
+
+/* There have been a few rules in the domain of Roman Numerals that we have worked with
+ * 1.Can't have more than 3 consecutive symbols
+ * 2.Only I (1), X (10) and C (100) can be "subtractors"
+ * 3.Taking the result of ConvertToRoman(N) and passing it to ConvertToArabic should return us N
+ 
+ * The tests we have written so far can be described as "example" based tests where we provide
+ * examples for the tooling to verify.
+ 
+ * What if we could take these rules that we know about our domain and somehow exercise them
+ * against our code?
+ *
+ * Property based tests help you do this by throwing random data at your code and verifying
+ * the rules you describe always hold true.
+ * The real challenge about property based tests is having a good understanding of your domain so
+ * you can write these properties.
+ */
+
+ func TestPropertiesOfConversion(t *testing.T) {
+	// int gives a flawed output for arabic values
+	// You can't do negative numbers with Roman Numerals
+	// Given our rule of a max of 3 consecutive symbols we can't
+	// represent a value greater than 3999 (well, kinda) and int
+	// has a much higher maximum value than 3999.
+
+	assertion := func(arabic uint16) bool {
+		if arabic > 3999 {
+			return true
+		}
+		t.Log("testing", arabic)
+		roman := ConvertToRoman(arabic)
+		fromRoman := ConvertToArabic(roman)
+		return fromRoman == arabic
+	}
+
+	// quick.Check will generate random values and pass them to
+	// the assertion function. The default checks is 100.
+	if err := quick.Check(assertion, nil); err != nil {
+		t.Error("failed checks", err)
+	}
+
+	// You can change the number of checks by passing a config
+	/* if err := quick.Check(assertion, &quick.Config{MaxCount: 1000}); err != nil {
+		t.Error("failed checks", err)
+	*/
+
+ }
+
+ /* resources:
+  *		testing/quick: https://pkg.go.dev/testing/quick
+  */
